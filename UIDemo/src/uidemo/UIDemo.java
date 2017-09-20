@@ -22,21 +22,21 @@ public class UIDemo extends Application {
     @Override
     public void start(Stage primaryStage) {
         Button btn = new Button();
-        btn.setText("Say 'Hello World'");
+        btn.setText("*CLICK HERE*");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+                System.out.println("You clicked button!");
             }
         });
         
         StackPane root = new StackPane();
         root.getChildren().add(btn);
         
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 600, 600);
         
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("UI Demo screen");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
