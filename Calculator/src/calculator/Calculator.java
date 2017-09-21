@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uidemo;
+package calculator;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,19 +29,42 @@ public class Calculator extends Application {
     public void start(Stage primaryStage) {
         
         // UI Define
-        Label laNumber1 = new Label("Number1:");
+        Label laNumber1 = new Label("Number 1:");
         TextField txtNumber1 = new TextField();
+        Label laNumber2 = new Label("Number 2:");
+        TextField txtNumber2 = new TextField();
+        Label laResults = new Label("Sum is:");
+        Button btn = new Button();
+        btn.setText("Click to calculate");
+        btn.setId("Calculate");
         
+        btn.setOnAction(event->{
+            int n1 = Integer.parseInt(txtNumber1.getText().toString());
+            int n2 = Integer.parseInt(txtNumber2.getText().toString());
+            int sum = n1 + n2;
+            laResults.setText("Sum is: "+sum);
+        });
+        
+        
+        // Set UI
         GridPane grid =  new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setGridLinesVisible(true); // For development only
+        //grid.setGridLinesVisible(true); // For development only
+        grid.setPadding(new Insets(25,25,25,25));
+        
+        // Adding UI to grid
         grid.add(laNumber1,0,0);
         grid.add(txtNumber1,1,0);
-        Scene scene = new Scene(grid, 600, 600);
-        
-        primaryStage.setTitle("UI Demo screen");
+        grid.add(laNumber2,0,1);
+        grid.add(txtNumber2,1,1);
+        grid.add(laResults,1,2);
+        grid.add(btn,2,3);
+        Scene scene = new Scene(grid, 1000, 563);
+        scene.getStylesheets()
+                .add(Calculator.class.getResource("Calculator.css").toExternalForm());
+        primaryStage.setTitle("X-Men calculator");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
