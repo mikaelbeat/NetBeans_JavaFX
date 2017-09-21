@@ -8,8 +8,12 @@ package uidemo;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -17,29 +21,23 @@ import javafx.stage.Stage;
  *
  * @author petri.ryynanen
  */
-public class UIDemo extends Application {
+public class Calculator extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("*CLICK HERE*");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("You clicked button!");
-            }
-        });
         
-        // Clicking button usin Lambda
-//        btn.setOnAction(event->{
-//         System.out.println("You clicked button!");
-//        });
+        // UI Define
+        Label laNumber1 = new Label("Number1:");
+        TextField txtNumber1 = new TextField();
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 600, 600);
+        GridPane grid =  new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setGridLinesVisible(true); // For development only
+        grid.add(laNumber1,0,0);
+        grid.add(txtNumber1,1,0);
+        Scene scene = new Scene(grid, 600, 600);
         
         primaryStage.setTitle("UI Demo screen");
         primaryStage.setScene(scene);
