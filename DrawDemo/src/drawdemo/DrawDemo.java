@@ -8,9 +8,14 @@ package drawdemo;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -21,22 +26,26 @@ public class DrawDemo extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
+        Circle cir = new Circle(50,50,50);
+        cir.setStroke(Color.ORANGE);
+        cir.setStrokeWidth(10);
+        cir.setFill(Color.YELLOW);
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
+        Line line = new Line(0,200,400,200);
+        line.setStroke(Color.BLACK);
+        line.setStrokeWidth(8);
         
-        Scene scene = new Scene(root, 300, 250);
+        Rectangle rec = new Rectangle(240, 90, 80, 70);
+        rec.setStroke(Color.GREEN);
+        rec.setStrokeWidth(8);
+        rec.setFill(Color.YELLOWGREEN);
         
-        primaryStage.setTitle("Hello World!");
+        Group root = new Group();
+        root.getChildren().addAll(cir,line,rec);
+        
+        Scene scene = new Scene(root, 400, 400,Color.SKYBLUE);
+        
+        primaryStage.setTitle("Draw Demo");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
