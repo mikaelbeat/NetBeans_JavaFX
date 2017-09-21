@@ -10,6 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -21,20 +24,17 @@ public class ImageViewDemo extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
+        Image pic = new Image("imageviewdemo/Destiny2.jpg");
+        ImageView ivPic = new ImageView(pic);
+        ivPic.setFitHeight(300);
+        ivPic.setFitWidth(400);
+        BorderPane pane = new BorderPane();
+        pane.setCenter(ivPic);
         
-        Scene scene = new Scene(root, 300, 250);
+
+        
+        Scene scene = new Scene(pane, 500, 400);
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
