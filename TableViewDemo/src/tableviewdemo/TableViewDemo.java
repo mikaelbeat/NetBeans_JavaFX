@@ -6,6 +6,8 @@
 package tableviewdemo;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,47 +26,60 @@ import javafx.stage.Stage;
  * @author petri.ryynanen
  */
 public class TableViewDemo extends Application {
-    
+
     @Override
     public void start(Stage primaryStage) {
-        
+
         // Define table view
-        
         // 1 - Define data set
-        ObservableList<Accounts> accountlist =
-                FXCollections.observableArrayList(
-                        new Accounts("Snake","12345","Admin"),
-                        new Accounts("Monkey","11111","Tester"),
-                        new Accounts("Cat","QWERTY","QA"),
-                        new Accounts("Fish","Chips","Manager"),
-                        new Accounts("Dog","fooD","Tester")
+        ObservableList<Accounts> accountlist
+                = FXCollections.observableArrayList(
+                        new Accounts("Snake", "12345", "Admin"),
+                        new Accounts("Monkey", "11111", "Tester"),
+                        new Accounts("Cat", "QWERTY", "QA"),
+                        new Accounts("Fish", "Chips", "Manager"),
+                        new Accounts("Dog", "fooD", "Tester")
                 );
 
         // 2- Define table view
-        TableView<Accounts> tvAccounts = 
-                new TableView<>(accountlist);
-        TableColumn<Accounts, String> fUserName =
-                new TableColumn<>("User Name");
+        TableView<Accounts> tvAccounts
+                = new TableView<>(accountlist);
+        TableColumn<Accounts, String> fUserName
+                = new TableColumn<>("User Name");
         fUserName.setCellValueFactory(new PropertyValueFactory<>("UserName"));
         tvAccounts.getColumns().add(fUserName);
 
-        TableColumn<Accounts, String> fPassword =
-                new TableColumn<>("Password");
+        TableColumn<Accounts, String> fPassword
+                = new TableColumn<>("Password");
         fPassword.setCellValueFactory(new PropertyValueFactory<>("Password"));
         tvAccounts.getColumns().add(fPassword);
 
-        TableColumn<Accounts, String> fType =
-                new TableColumn<>("Account Type");
+        TableColumn<Accounts, String> fType
+                = new TableColumn<>("Account Type");
         fType.setCellValueFactory(new PropertyValueFactory<>("Type"));
         tvAccounts.getColumns().add(fType);
-        tvAccounts.setPrefSize(300, 350);
-        
-        
+        tvAccounts.setPrefSize(300, 200);
+
+        // Access event
+        TableView.TableViewSelectionModel<Accounts> tvSelectModule
+                = tvAccounts.getSelectionModel();
+        tvSelectModule.selectedIndexProperty().
+                addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observable,
+                            Number oldValue, Number newValue) {
+                         int index = (int) newValue;
+                         System.out.println("Name: "+ accountlist.get(index).getUserName());
+                    }
+
+                }
+                );
+
         FlowPane root = new FlowPane();
         root.getChildren().add(tvAccounts);
 
-        Scene scene = new Scene(root, 300, 250);
-        
+        Scene scene = new Scene(root, 300, 200);
+
         primaryStage.setTitle("Table view DEMO");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -76,8 +91,5 @@ public class TableViewDemo extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
-
-
-Video 14,18
