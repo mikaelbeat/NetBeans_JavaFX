@@ -6,12 +6,14 @@
 package tictactoygame;
 
 import java.util.ArrayList;
+import java.util.Random;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -23,58 +25,59 @@ import javafx.stage.Stage;
  */
 public class TicTacToyGame extends Application {
     
+            Button btn1 = new Button();
+            Button btn2 = new Button();
+            Button btn3 = new Button();
+            Button btn4 = new Button();
+            Button btn5 = new Button();
+            Button btn6 = new Button();
+            Button btn7 = new Button();
+            Button btn8 = new Button();
+            Button btn9 = new Button();
+    
     @Override
     public void start(Stage primaryStage) {
         
-        Button btn1 = new Button();
         btn1.setText("");
         btn1.setOnAction(event->{
             PlayGame(1,btn1);
         });
         
-        Button btn2 = new Button();
         btn2.setText("");
         btn2.setOnAction(event->{
             PlayGame(2,btn2);
         });
         
-        Button btn3 = new Button();
         btn3.setText("");
         btn3.setOnAction(event->{
             PlayGame(3,btn3);
         });
         
-        Button btn4 = new Button();
         btn4.setText("");
         btn4.setOnAction(event->{
             PlayGame(4,btn4);
         });
         
-        Button btn5 = new Button();
         btn5.setText("");
         btn5.setOnAction(event->{
             PlayGame(5,btn5);
         });
         
-        Button btn6 = new Button();
         btn6.setText("");
         btn6.setOnAction(event->{
             PlayGame(6,btn6);
         });
         
-        Button btn7 = new Button();
         btn7.setText("");
         btn7.setOnAction(event->{
             PlayGame(7,btn7);
         });
         
-        Button btn8 = new Button();
         btn8.setText("");
         btn8.setOnAction(event->{
             PlayGame(8,btn8);
         });
         
-        Button btn9 = new Button();
         btn9.setText("");
         btn9.setOnAction(event->{
             PlayGame(9,btn9);
@@ -116,6 +119,7 @@ public class TicTacToyGame extends Application {
             SelectedButton.setText("X");
             Player1.add(CellId);
             ActivePlayer = 2;
+            AutoPlayer();
         }
         else  if(ActivePlayer==2){
             SelectedButton.setText("O");
@@ -174,15 +178,67 @@ public class TicTacToyGame extends Application {
         if (Winner !=-1){
             String MSG = "";
             if(Winner == 1){
-                MSG = "Player 1 is the winner!";
+                MSG = "Player 1";
             }
             if (Winner == 2){
-                MSG == "Player 2 is the winner!";
+                MSG = "Player 2";
             }
             
             // Alert   dialog
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Result of the game");
+            alert.setContentText(MSG);
+            alert.setHeaderText("Winner of the game is:");
+            alert.show();
+            }
+    }
+    
+    void AutoPlayer(){
+        ArrayList<Integer> EmptyCells = new ArrayList<Integer>();
+        for(int cell=1;cell<10;cell++){
+            if (!(Player1.contains(cell) || Player2.contains(cell))){
+                EmptyCells.add(cell);
             }
         }
+        Random r = new Random();
+        int RandIndex = r.nextInt(EmptyCells.size()-0)+0;
+        int CellId = EmptyCells.get(RandIndex);
+        Button SelectedButton;
+        
+        switch(CellId){
+            case 1:
+                SelectedButton = btn1;
+            break;
+            case 2:
+                SelectedButton = btn2;
+            break;
+            case 3:
+                SelectedButton = btn3;
+            break;
+            case 4:
+                SelectedButton = btn4;
+            break;
+            case 5:
+                SelectedButton = btn5;
+            break;
+            case 6:
+                SelectedButton = btn6;
+            break;
+            case 7:
+                SelectedButton = btn7;
+            break;
+            case 8:
+                SelectedButton = btn8;
+            break;
+            case 9:
+                SelectedButton = btn9;
+            break;
+            default:
+                SelectedButton = btn1;
+        }
+        
+        PlayGame(CellId, SelectedButton);
+        
     }
 
     /**
