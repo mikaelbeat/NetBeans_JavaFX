@@ -5,6 +5,7 @@
  */
 package tictactoygame;
 
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -96,7 +97,7 @@ public class TicTacToyGame extends Application {
         grid.add(btn9,2,2);
         
         
-        Scene scene = new Scene (grid, 1600, 1600);
+        Scene scene = new Scene (grid, 1000, 1000);
         scene.getStylesheets()
                 .add(TicTacToyGame.class.getResource("Style.css")
                 .toExternalForm());
@@ -106,8 +107,82 @@ public class TicTacToyGame extends Application {
         primaryStage.show();
     }
     
+    ArrayList<Integer> Player1 = new ArrayList<Integer>();
+    ArrayList<Integer> Player2 = new ArrayList<Integer>();
+    int ActivePlayer=1;
     void PlayGame(int CellId, Button SelectedButton){
         System.out.println("CellID: " + CellId);
+        if(ActivePlayer==1){
+            SelectedButton.setText("X");
+            Player1.add(CellId);
+            ActivePlayer = 2;
+        }
+        else  if(ActivePlayer==2){
+            SelectedButton.setText("O");
+            Player2.add(CellId);
+            ActivePlayer=1;
+        }
+        
+        SelectedButton.setDisable(true);
+        CheckWinner();
+    }
+    
+    void CheckWinner(){
+        
+        // Vertical rows
+        int Winner = -1;
+        if(Player1.contains(1)&& Player1.contains(2) && Player1.contains(3)){
+            Winner = 1;
+        }
+        if(Player2.contains(1)&& Player2.contains(2) && Player2.contains(3)){
+            Winner = 2;
+        }
+        if(Player1.contains(4)&& Player1.contains(5) && Player1.contains(6)){
+            Winner = 1;
+        }
+        if(Player2.contains(4)&& Player2.contains(5) && Player2.contains(6)){
+            Winner = 2;
+        }
+        if(Player1.contains(7)&& Player1.contains(8) && Player1.contains(9)){
+            Winner = 1;
+        }
+        if(Player2.contains(7)&& Player2.contains(8) && Player2.contains(9)){
+            Winner = 2;
+        }
+        
+        // Horizontal
+        if(Player1.contains(1)&& Player1.contains(4) && Player1.contains(7)){
+            Winner = 1;
+        }
+        if(Player2.contains(1)&& Player2.contains(4) && Player2.contains(7)){
+            Winner = 2;
+        }
+        if(Player1.contains(2)&& Player1.contains(5) && Player1.contains(8)){
+            Winner = 1;
+        }
+        if(Player2.contains(2)&& Player2.contains(5) && Player2.contains(8)){
+            Winner = 2;
+        }
+        if(Player1.contains(3)&& Player1.contains(6) && Player1.contains(9)){
+            Winner = 1;
+        }
+        if(Player2.contains(3)&& Player2.contains(6) && Player2.contains(9)){
+            Winner = 2;
+        }
+        
+        // Show winner message
+        if (Winner !=-1){
+            String MSG = "";
+            if(Winner == 1){
+                MSG = "Player 1 is the winner!";
+            }
+            if (Winner == 2){
+                MSG == "Player 2 is the winner!";
+            }
+            
+            // Alert   dialog
+            }
+        }
     }
 
     /**
